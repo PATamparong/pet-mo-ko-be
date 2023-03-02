@@ -2,16 +2,19 @@
   "data": {
     "animals": [
       {
-        "id": 1,
-        "name": "Gucci"
+        "id": "1",
+        "name": "Gucci",
+        "age": 1
       },
       {
-        "id": 2,
-        "name": "Gucci"
+        "id": "2",
+        "name": "Gucci",
+        "age": 1
       },
       {
-        "id": 3,
-        "name": "Gucci"
+        "id": "3",
+        "name": "Gucci",
+        "age": 1
       }
     ]
   }
