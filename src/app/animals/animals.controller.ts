@@ -10,25 +10,24 @@ import {
 import { AnimalsService } from './animals.service';
 import { CreateAnimalDto } from './dto/create-animal.dto';
 import { UpdateAnimalDto } from './dto/update-animal.dto';
-import { LowdbService } from '../../lowdb/lowdb.service';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Animals')
-@Controller('Animals')
+@Controller('animals')
 export class AnimalsController {
-  constructor(
-    private readonly animalsService: AnimalsService,
-    private readonly lowdbService: LowdbService,
-  ) {}
+  constructor(private readonly animalsService: AnimalsService) {}
 
-  @Post()
-  create(@Body() createAnimalDto: CreateAnimalDto) {
-    return this.animalsService.create(createAnimalDto);
+  @ApiBody({ type: CreateAnimalDto })
+  @Post('/add-animal')
+  async create(@Body() data: CreateAnimalDto) {
+    const createdAnimal = await this.animalsService.insertAnimal(data);
+
+    return createdAnimal;
   }
 
-  @Get('/animals')
+  @Get('/get-all-animals-information')
   async findAllAnimals() {
-    const listOfAnimals = await this.animalsService.findAll();
+    const listOfAnimals = await this.animalsService.findAllAnimals();
 
     return listOfAnimals;
   }
@@ -40,7 +39,7 @@ export class AnimalsController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAnimalDto: UpdateAnimalDto) {
-    return this.animalsService.update(+id, updateAnimalDto);
+    return this.animalsService.updateAnimalData(id, updateAnimalDto);
   }
 
   @Delete(':id')

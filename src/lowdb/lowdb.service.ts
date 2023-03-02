@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as lowdb from 'lowdb';
 import * as FileAsync from 'lowdb/adapters/FileAsync';
-import * as uuid from 'uuid';
 
 type CollctionName = 'data';
 
@@ -42,53 +41,44 @@ export class LowdbService {
     return listOfAnimals;
   }
 
-  public async findByKey(
-    key: number,
-    value: string | string,
-    collctionName: CollctionName,
-  ): Promise<any> {
-    const values = this.db.get(collctionName).value();
+  // public async find(
+  //   condition: object,
+  //   collctionName: CollctionName,
+  // ): Promise<any> {
+  //   const values = await this.db.get(collctionName).find(condition).value();
 
-    let result;
-
-    values.map((user) => {
-      if (user[key] !== value) return result;
-      if (user[key] === value) {
-        return result;
-      }
-    });
-
-    return result;
-  }
+  //   return values;
+  // }
 
   public async update(
     key: string,
-    value: string | string,
     collctionName: string,
     dataUpdate: any,
   ): Promise<any> {
     const listUsers = await this.db.get(collctionName).value();
     let out;
 
-    const listData = listUsers.map((user) => {
-      if (user[key] !== value) return user;
-      if (user[key] === value) {
-        out = Object.assign(user, dataUpdate);
+    const listData = listUsers?.animals?.map((animals) => {
+      if (animals.id === key) {
+        out = Object.assign(animals, dataUpdate);
 
         return out;
+      } else {
+        return animals;
       }
     });
 
-    await this.db.set(collctionName, listData).write();
+    await this.db.set(collctionName, { animals: listData }).write();
 
     return out;
   }
 
   public async insert(record: any, collctionName: CollctionName): Promise<any> {
     const listData = await this.db.get(collctionName).value();
-    record.id = uuid.v1();
-    listData.push(record);
-    await this.db.set(collctionName, listData).write();
+    record.id = Math.floor((1 + Math.random()) * 0x10).toString();
+    listData?.animals?.push(record);
+
+    this.db.set(collctionName, listData).write();
 
     return record;
   }

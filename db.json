@@ -3,18 +3,53 @@
     "animals": [
       {
         "id": "1",
-        "name": "Gucci",
-        "age": 1
+        "name": "Haloo there",
+        "age": 6
       },
       {
         "id": "2",
-        "name": "Gucci",
+        "name": "Haloo",
         "age": 1
       },
       {
         "id": "3",
         "name": "Gucci",
         "age": 1
+      },
+      {
+        "name": "GOLANG",
+        "age": 1,
+        "id": "11101"
+      },
+      {
+        "name": "GOLANG",
+        "age": 1,
+        "id": "11011"
+      },
+      {
+        "name": "GOLANG",
+        "age": 1,
+        "id": "10010"
+      },
+      {
+        "name": "War freak",
+        "age": 10,
+        "id": "20"
+      },
+      {
+        "name": "GOLANG",
+        "age": 1,
+        "id": "30"
+      },
+      {
+        "name": "GOLANG",
+        "age": 1,
+        "id": "21"
+      },
+      {
+        "name": "GOLANG",
+        "age": 1,
+        "id": "29"
       }
     ]
   }

@@ -1,0 +1,14 @@
+ let corsConfiguration = {};
+  if (config.accessControlOriginUrl.production) {
+    corsConfiguration = {
+      credentials: true,
+      exposedHeaders: ['accesstoken', 'content-disposition'],
+      origin: config.accessControlOriginUrl.production,
+    };
+  }
+
+  corsConfiguration = {
+    credentials: true,
+    exposedHeaders: ['accesstoken', 'content-disposition'],
+    origin: config.accessControlOriginUrl.local,
+  };
