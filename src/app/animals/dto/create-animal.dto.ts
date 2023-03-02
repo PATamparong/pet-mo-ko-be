@@ -9,14 +9,21 @@ import {
 import { Type } from 'class-transformer';
 
 import { AnimalDetailsDto } from './animal-details.dto';
+import { ApiProperty } from '@nestjs/swagger';
 export class CreateAnimalDto {
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   name: string;
 
   @IsNumber()
   @IsNotEmpty()
+  @ApiProperty()
   age: number;
+
+  @IsString()
+  @IsOptional()
+  status?: string;
 
   @IsObject()
   @IsOptional()

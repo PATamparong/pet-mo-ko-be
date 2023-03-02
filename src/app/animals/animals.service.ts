@@ -41,7 +41,9 @@ export class AnimalsService {
     return updateAnimal;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} animal`;
+  async remove(id: string) {
+    const updateAnimal = await this.lowdbService.delete(id, 'data');
+
+    return updateAnimal;
   }
 }

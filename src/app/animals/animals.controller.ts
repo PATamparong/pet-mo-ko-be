@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { AnimalsService } from './animals.service';
 import { CreateAnimalDto } from './dto/create-animal.dto';
@@ -37,13 +38,14 @@ export class AnimalsController {
     return this.animalsService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put('/edit-animal/:id')
+  @ApiBody({ type: UpdateAnimalDto })
   update(@Param('id') id: string, @Body() updateAnimalDto: UpdateAnimalDto) {
     return this.animalsService.updateAnimalData(id, updateAnimalDto);
   }
 
-  @Delete(':id')
+  @Delete('/delete-animal/:id')
   remove(@Param('id') id: string) {
-    return this.animalsService.remove(+id);
+    return this.animalsService.remove(id);
   }
 }

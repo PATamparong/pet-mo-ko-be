@@ -41,15 +41,6 @@ export class LowdbService {
     return listOfAnimals;
   }
 
-  // public async find(
-  //   condition: object,
-  //   collctionName: CollctionName,
-  // ): Promise<any> {
-  //   const values = await this.db.get(collctionName).find(condition).value();
-
-  //   return values;
-  // }
-
   public async update(
     key: string,
     collctionName: string,
@@ -81,5 +72,25 @@ export class LowdbService {
     this.db.set(collctionName, listData).write();
 
     return record;
+  }
+
+  public async delete(key: string, collctionName: CollctionName): Promise<any> {
+    const listUsers = await this.db.get(collctionName).value();
+
+    let out;
+
+    const listData = listUsers?.animals?.map((animals) => {
+      if (animals.id === key) {
+        out = Object.assign(animals, { ...animals, status: 'deleted' });
+
+        return out;
+      } else {
+        return animals;
+      }
+    });
+
+    await this.db.set(collctionName, { animals: listData }).write();
+
+    return out;
   }
 }
