@@ -12,3 +12,5 @@
     exposedHeaders: ['accesstoken', 'content-disposition'],
     origin: config.accessControlOriginUrl.local,
   };
+
+   // app.use(csurf({ cookie: true }));
