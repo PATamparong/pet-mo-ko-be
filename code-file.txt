@@ -13,6 +13,15 @@
     origin: config.accessControlOriginUrl.local,
   };
 
+//PROD CONFIG
+  if (config.isProduction) {
+    corsConfiguration = {
+      credentials: true,
+      exposedHeaders: ['accesstoken', 'content-disposition'],
+      origin: config.accessControlOriginUrl.production,
+    };
+  }
+
    // app.use(csurf({ cookie: true }));
 
 

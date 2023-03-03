@@ -12,14 +12,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config: ConfigType<typeof commonConfig> = app.get(ConfigService);
 
-  let corsConfiguration = {};
-  if (config.isProduction) {
-    corsConfiguration = {
-      credentials: true,
-      exposedHeaders: ['accesstoken', 'content-disposition'],
-      origin: config.accessControlOriginUrl.production,
-    };
-  }
+  const corsConfiguration = {
+    credentials: true,
+    exposedHeaders: ['accesstoken', 'content-disposition'],
+    origin: config.accessControlOriginUrl.production,
+  };
 
   const openAPIOptions = new DocumentBuilder()
     .setTitle(config.swaggerTitle)
