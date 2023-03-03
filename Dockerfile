@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install the dependencies required to build the application.
-RUN npm ci
+RUN npm install
 
 # Copy the application source into the container.
 COPY . .
@@ -32,4 +32,4 @@ COPY --from=builder /usr/src/app/dist/ ./dist/
 EXPOSE 3000
 
 # Run the application.
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/main"]
