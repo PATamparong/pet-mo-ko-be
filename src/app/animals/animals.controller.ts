@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Put,
@@ -21,16 +20,24 @@ export class AnimalsController {
   @ApiBody({ type: CreateAnimalDto })
   @Post('/add-animal')
   async create(@Body() data: CreateAnimalDto) {
-    const createdAnimal = await this.animalsService.insertAnimal(data);
+    try {
+      const createdAnimal = await this.animalsService.insertAnimal(data);
 
-    return createdAnimal;
+      return createdAnimal;
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Get('/get-all-animals-information')
   async findAllAnimals() {
-    const listOfAnimals = await this.animalsService.findAllAnimals();
+    try {
+      const listOfAnimals = await this.animalsService.findAllAnimals();
 
-    return listOfAnimals;
+      return listOfAnimals;
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Get(':id')
@@ -41,11 +48,19 @@ export class AnimalsController {
   @Put('/edit-animal/:id')
   @ApiBody({ type: UpdateAnimalDto })
   update(@Param('id') id: string, @Body() updateAnimalDto: UpdateAnimalDto) {
-    return this.animalsService.updateAnimalData(id, updateAnimalDto);
+    try {
+      return this.animalsService.updateAnimalData(id, updateAnimalDto);
+    } catch (err) {
+      throw err;
+    }
   }
 
   @Delete('/delete-animal/:id')
   remove(@Param('id') id: string) {
-    return this.animalsService.remove(id);
+    try {
+      return this.animalsService.remove(id);
+    } catch (err) {
+      throw err;
+    }
   }
 }
