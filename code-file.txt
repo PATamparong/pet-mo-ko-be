@@ -14,3 +14,33 @@
   };
 
    // app.use(csurf({ cookie: true }));
+
+
+
+// DB INSTANCE
+  constructor() {
+    this.initDatabase('data');
+  }
+
+  private async initDatabase(collctionName: CollctionName) {
+    const adapter = new FileAsync('db.json');
+    this.db = await lowdb(adapter);
+
+    const listOfAnimals = await this.db.get(collctionName).value();
+
+    if (!listOfAnimals) {
+      await this.db
+        .set(collctionName, {
+          data: {
+            animals: [
+              { id: 1, name: 'gucci' },
+              { id: 2, name: 'lyla' },
+              { id: 3, name: 'zilong' },
+            ],
+          },
+        })
+        .write();
+    }
+
+    await this.db.read();
+  }

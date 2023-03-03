@@ -8,33 +8,6 @@ type CollctionName = 'data';
 export class LowdbService {
   private db: lowdb.LowdbAsync<any>;
 
-  constructor() {
-    this.initDatabase('data');
-  }
-
-  private async initDatabase(collctionName: CollctionName) {
-    const adapter = new FileAsync('db.json');
-    this.db = await lowdb(adapter);
-
-    const listOfAnimals = await this.db.get(collctionName).value();
-
-    if (!listOfAnimals) {
-      await this.db
-        .set(collctionName, {
-          data: {
-            animals: [
-              { id: 1, name: 'gucci' },
-              { id: 2, name: 'lyla' },
-              { id: 3, name: 'zilong' },
-            ],
-          },
-        })
-        .write();
-    }
-
-    await this.db.read();
-  }
-
   public async findAll(collctionName: CollctionName): Promise<any> {
     const listOfAnimals = await this.db.get(collctionName).value();
 
